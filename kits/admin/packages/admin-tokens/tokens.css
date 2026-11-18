@@ -1,0 +1,194 @@
+/* =====================================================================================
+ * @metaobjectsdev/admin-tokens — the shared admin design tokens, plain CSS custom properties.
+ *
+ * Theme contract (one rule for every app):
+ *   <html data-theme="light|dark"> pins the theme; with no attribute the page follows
+ *   prefers-color-scheme. Any element may carry data-theme to start a nested theme scope.
+ *
+ * No web fonts, no images, no url(): this file passes a `default-src 'none'` content policy.
+ * Apps change the accent family (and optionally --font-display) in their own CSS, loaded
+ * after this file. See the package README.
+ *
+ * The dark values appear twice: once for a pinned dark scope and once for auto mode. The
+ * two blocks must stay identical; `pnpm check:css` fails when they drift.
+ * ===================================================================================== */
+
+/* Theme-independent tokens: type, radii and sizes. They sit on :root alone, so a nested
+   light scope never resets an app's --font-display or the touch-screen control heights. */
+:root {
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-sans);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --fs-xs: 12px;
+  --fs-sm: 13px;
+  --fs-md: 14px;
+  --fs-lg: 16px;
+  --fs-xl: 20px;
+  --fs-2xl: 24px;
+
+  --r-sm: 6px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-full: 999px;
+
+  --control-h: 36px;
+  --control-h-sm: 30px;
+  --sidebar-w: 232px;
+  --drawer-w: 480px;
+
+  /* The chart series palette: six slots plus grey for a folded "Other". It sits here, outside
+     the theme scopes, so a series keeps its colour in light and dark; every slot holds at least
+     3:1 against the light and the dark surface (`pnpm check:css` checks both). */
+  --series-1: #2f7fd8;
+  --series-2: #e0662b;
+  --series-3: #0f9b6b;
+  --series-4: #9b6bd6;
+  --series-5: #b07d00;
+  --series-6: #d9548a;
+  --series-other: #7f8792;
+}
+
+/* Light, and the default before any theme applies. A theme scope carries colours only. */
+:root,
+[data-theme="light"] {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --surface-2: #f1f3f6;
+  --surface-3: #e9ecf1;
+  --border: #d8dce3;
+  --border-strong: #b9c0cb;
+  --text: #1a1d23;
+  --text-muted: #5c6470;
+  --text-faint: #7d8592;
+
+  --accent: #2f5bd7;
+  --accent-fg: #ffffff;
+  --accent-ink: #2f5bd7;
+  --accent-soft: #e8eefc;
+
+  --success-ink: #1d7a4a;
+  --success-soft: #e6f4ec;
+  --warning-ink: #8a5a00;
+  --warning-soft: #fdf3dc;
+  --danger-ink: #b3261e;
+  --danger-soft: #fdeceb;
+  --info-ink: #2a6fb0;
+  --info-soft: #e5f0fa;
+
+  --shadow-1: 0 1px 2px rgba(16, 24, 40, 0.06), 0 1px 3px rgba(16, 24, 40, 0.04);
+  --shadow-pop: 0 12px 32px rgba(16, 24, 40, 0.18);
+  --scrim: rgba(15, 18, 24, 0.45);
+
+  /* A validated five-colour chart palette, plus a muted series and grid lines. */
+  --viz-1: #2a78d6;
+  --viz-2: #eb6834;
+  --viz-3: #1baf7a;
+  --viz-4: #eda100;
+  --viz-5: #e87ba4;
+  --viz-muted: #b9c0cb;
+  --viz-grid: #e6e9ee;
+
+  color-scheme: light;
+}
+
+/* dark:pinned:start */
+[data-theme="dark"] {
+  --bg: #14161a;
+  --surface: #1c1f25;
+  --surface-2: #22262d;
+  --surface-3: #2a2f37;
+  --border: #2c313a;
+  --border-strong: #3c434e;
+  --text: #e7e9ed;
+  --text-muted: #a0a7b4;
+  --text-faint: #7a8290;
+
+  --accent: #7ea1ff;
+  --accent-fg: #10131a;
+  --accent-ink: #9db6ff;
+  --accent-soft: rgba(126, 161, 255, 0.14);
+
+  --success-ink: #6fd39b;
+  --success-soft: rgba(80, 200, 130, 0.13);
+  --warning-ink: #f0b84a;
+  --warning-soft: rgba(240, 184, 74, 0.13);
+  --danger-ink: #ff9a92;
+  --danger-soft: #3a1f1d;
+  --info-ink: #7cc0ff;
+  --info-soft: rgba(124, 192, 255, 0.13);
+
+  --shadow-1: none;
+  --shadow-pop: 0 16px 40px rgba(0, 0, 0, 0.5);
+  --scrim: rgba(0, 0, 0, 0.6);
+
+  --viz-1: #3987e5;
+  --viz-2: #d95926;
+  --viz-3: #199e70;
+  --viz-4: #c98500;
+  --viz-5: #d55181;
+  --viz-muted: #3c434e;
+  --viz-grid: #2c313a;
+
+  color-scheme: dark;
+}
+/* dark:pinned:end */
+
+/* A nested theme scope must restate the text colour: `color` inherits as a resolved value,
+   so without this a dark panel inside a light page keeps the light page's text colour. */
+[data-theme="light"],
+[data-theme="dark"] {
+  color: var(--text);
+}
+
+/* Auto mode: follow the OS unless the page pinned a theme. */
+@media (prefers-color-scheme: dark) {
+  /* dark:auto:start */
+  :root:not([data-theme="light"]) {
+    --bg: #14161a;
+    --surface: #1c1f25;
+    --surface-2: #22262d;
+    --surface-3: #2a2f37;
+    --border: #2c313a;
+    --border-strong: #3c434e;
+    --text: #e7e9ed;
+    --text-muted: #a0a7b4;
+    --text-faint: #7a8290;
+
+    --accent: #7ea1ff;
+    --accent-fg: #10131a;
+    --accent-ink: #9db6ff;
+    --accent-soft: rgba(126, 161, 255, 0.14);
+
+    --success-ink: #6fd39b;
+    --success-soft: rgba(80, 200, 130, 0.13);
+    --warning-ink: #f0b84a;
+    --warning-soft: rgba(240, 184, 74, 0.13);
+    --danger-ink: #ff9a92;
+    --danger-soft: #3a1f1d;
+    --info-ink: #7cc0ff;
+    --info-soft: rgba(124, 192, 255, 0.13);
+
+    --shadow-1: none;
+    --shadow-pop: 0 16px 40px rgba(0, 0, 0, 0.5);
+    --scrim: rgba(0, 0, 0, 0.6);
+
+    --viz-1: #3987e5;
+    --viz-2: #d95926;
+    --viz-3: #199e70;
+    --viz-4: #c98500;
+    --viz-5: #d55181;
+    --viz-muted: #3c434e;
+    --viz-grid: #2c313a;
+
+    color-scheme: dark;
+  }
+  /* dark:auto:end */
+}
+
+/* Touch screens get 44px targets. */
+@media (pointer: coarse) {
+  :root {
+    --control-h: 44px;
+    --control-h-sm: 36px;
+  }
+}

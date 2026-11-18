@@ -1,0 +1,60 @@
+{
+  "name": "@metaobjectsdev/admin-tokens",
+  "version": "0.1.0",
+  "description": "Shared admin design tokens: CSS custom properties for light and dark, a W3C Design Tokens (DTCG) tokens.json, a Tailwind 4 bridge and the theme contract helper. The MetaObjects reference admin kit.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "exports": {
+    "./tokens.css": "./tokens.css",
+    "./tailwind.css": "./tailwind.css",
+    "./tokens.json": "./tokens.json",
+    "./theme": {
+      "types": "./theme.d.ts",
+      "default": "./theme.js"
+    },
+    "./theme.js": {
+      "types": "./theme.d.ts",
+      "default": "./theme.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "tokens.css",
+    "tailwind.css",
+    "tokens.json",
+    "theme.js",
+    "theme.d.ts",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "keywords": [
+    "design-tokens",
+    "css",
+    "admin",
+    "tailwind",
+    "metaobjects"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "tag": "preview"
+  },
+  "scripts": {
+    "build": "node ../../scripts/tokens-json.mjs --check",
+    "typecheck": "true",
+    "test": "true",
+    "prepack": "node ../../scripts/tokens-json.mjs --check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/metaobjectsdev/ui-kits.git",
+    "directory": "kits/admin/packages/admin-tokens"
+  },
+  "homepage": "https://github.com/metaobjectsdev/ui-kits/tree/main/kits/admin#readme",
+  "bugs": {
+    "url": "https://github.com/metaobjectsdev/ui-kits/issues"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "admin-kit",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.26.2",
+  "engines": {
+    "node": "^22.22.2 || ^24.15.0 || >=26.0.0"
+  },
+  "scripts": {
+    "build": "pnpm -r build",
+    "tokens:json": "node scripts/tokens-json.mjs",
+    "admin-css:build": "node scripts/build-admin-css.mjs",
+    "check:css": "node scripts/check-css.mjs",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "check": "pnpm check:css && pnpm typecheck && pnpm test && pnpm build",
+    "demo": "node scripts/serve-demo.mjs",
+    "pack:vendor": "scripts/pack-vendor.sh"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  }
+}

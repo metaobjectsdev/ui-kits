@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!-- The strictest policy an admin can run: nothing loads but same-origin CSS
+       and scripts. No inline styles or scripts, no fonts, no images. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>Admin kit demo</title>
+  <link rel="stylesheet" href="../packages/admin-tokens/tokens.css">
+  <link rel="stylesheet" href="../packages/admin-css/components.css">
+  <link rel="stylesheet" href="demo.css">
+  <script type="module" src="demo.js"></script>
+</head>
+<body class="ak-root">
+<div class="ak-shell">
+  <aside class="ak-sidebar" id="sidebar">
+    <div class="ak-sidebar-inner">
+      <div class="ak-brand">
+        <a href="#"><b>Example</b> Admin</a>
+        <button type="button" class="ak-btn ak-btn-ghost ak-btn-icon ak-btn-sm ak-drawer-close" aria-label="Close menu" data-nav-close>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <nav class="ak-nav" aria-label="Admin">
+        <div class="ak-nav-group" role="group" aria-labelledby="g-overview">
+          <p class="ak-nav-label" id="g-overview">Overview</p>
+          <a class="ak-nav-item" href="#">Dashboard</a>
+          <a class="ak-nav-item" href="#">Analytics</a>
+        </div>
+        <div class="ak-nav-group" role="group" aria-labelledby="g-sales">
+          <p class="ak-nav-label" id="g-sales">Sales</p>
+          <a class="ak-nav-item" href="#" aria-current="page">Orders <span class="ak-count" aria-label="3 new">3</span></a>
+          <a class="ak-nav-item ak-nav-sub" href="#">Refunds</a>
+          <a class="ak-nav-item" href="#">Grant access</a>
+        </div>
+        <div class="ak-nav-group" role="group" aria-labelledby="g-audience">
+          <p class="ak-nav-label" id="g-audience">Audience</p>
+          <a class="ak-nav-item" href="#">Subscribers</a>
+          <a class="ak-nav-item" href="#">Email</a>
+        </div>
+        <div class="ak-nav-group" role="group" aria-labelledby="g-content">
+          <p class="ak-nav-label" id="g-content">Content</p>
+          <a class="ak-nav-item" href="#">Programs</a>
+          <a class="ak-nav-item" href="#">Videos</a>
+        </div>
+      </nav>
+      <div class="ak-sidebar-foot">
+        <div class="ak-seg" role="group" aria-label="Theme" data-theme-toggle>
+          <button type="button" data-theme-choice="auto" aria-pressed="true">Auto</button>
+          <button type="button" data-theme-choice="light" aria-pressed="false">Light</button>
+          <button type="button" data-theme-choice="dark" aria-pressed="false">Dark</button>
+        </div>
+        <a href="#">Sign out</a>
+      </div>
+    </div>
+  </aside>
+  <div class="ak-scrim" aria-hidden="true" data-nav-close></div>
+
+  <div class="ak-main">
+    <header class="ak-topbar ak-shell-topbar">
+      <button type="button" class="ak-btn ak-btn-ghost ak-btn-icon" aria-label="Menu" aria-expanded="false" aria-controls="sidebar" data-nav-open>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <div class="ak-topbar-title"><b>Example</b> Admin</div>
+    </header>
+
+    <main class="ak-content">
+      <header class="ak-page-head">
+        <div>
+          <div class="ak-page-back"><a href="#">← Sales</a></div>
+          <h1 class="ak-page-title">Orders <span class="ak-badge ak-badge-accent">Live</span></h1>
+          <p class="ak-page-desc">Every sale, refund and manual grant, newest first.</p>
+        </div>
+        <div class="ak-actions">
+          <a class="ak-btn ak-btn-ghost" href="data.html">Layout and data demo</a>
+          <button type="button" class="ak-btn">Export</button>
+          <button type="button" class="ak-btn ak-btn-primary">Grant access</button>
+        </div>
+      </header>
+
+      <div class="ak-stats ak-stats-cols-4">
+        <div class="ak-card ak-stat"><p class="ak-stat-label">Revenue</p><p class="ak-stat-value">$12,480</p><p class="ak-stat-note">this month</p></div>
+        <div class="ak-card ak-stat"><p class="ak-stat-label">Orders</p><p class="ak-stat-value">128</p><p class="ak-stat-note">+14 this week</p></div>
+        <div class="ak-card ak-stat"><p class="ak-stat-label">Refunds</p><p class="ak-stat-value">3</p><p class="ak-stat-note">2.3% of orders</p></div>
+        <div class="ak-card ak-stat"><p class="ak-stat-label">Subscribers</p><p class="ak-stat-value">4,210</p><p class="ak-stat-note">active</p></div>
+      </div>
+
+      <section class="ak-card">
+        <div class="ak-card-head">
+          <h2 class="ak-card-title">Recent orders</h2>
+          <div class="ak-seg" role="group" aria-label="Status filter" data-seg>
+            <button type="button" aria-pressed="true">All</button>
+            <button type="button" aria-pressed="false">Active</button>
+            <button type="button" aria-pressed="false">Refunded</button>
+          </div>
+        </div>
+        <div class="ak-table-wrap">
+          <table class="ak-table">
+            <thead>
+              <tr><th>Buyer</th><th>Program</th><th class="ak-right">Price</th><th>Status</th><th><span class="ak-sr-only">Actions</span></th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="ak-primary-cell">ana@example.com<span class="ak-sub">Oct 24 · purchase</span></td>
+                <td>Foundations</td><td class="ak-right ak-num">$149.00</td>
+                <td><span class="ak-badge ak-badge-success">Active</span></td>
+                <td class="ak-right"><button type="button" class="ak-btn ak-btn-danger ak-btn-sm" data-open-dialog="revoke">Revoke</button></td>
+              </tr>
+              <tr>
+                <td class="ak-primary-cell">ben@example.com<span class="ak-sub">Oct 23 · grant</span></td>
+                <td>Masterclass</td><td class="ak-right ak-num">$0.00</td>
+                <td><span class="ak-badge ak-badge-info">Granted</span></td>
+                <td class="ak-right"><button type="button" class="ak-btn ak-btn-danger ak-btn-sm" data-open-dialog="revoke">Revoke</button></td>
+              </tr>
+              <tr>
+                <td class="ak-primary-cell">cy@example.com<span class="ak-sub">Oct 21 · purchase</span></td>
+                <td>Foundations</td><td class="ak-right ak-num">$149.00</td>
+                <td><span class="ak-badge ak-badge-warning">Refunded</span></td>
+                <td class="ak-right"><button type="button" class="ak-btn ak-btn-sm" disabled>Revoke</button></td>
+              </tr>
+              <tr>
+                <td class="ak-primary-cell">dee@example.com<span class="ak-sub">Oct 20 · purchase</span></td>
+                <td>Studio sessions</td><td class="ak-right ak-num">$89.00</td>
+                <td><span class="ak-badge ak-badge-danger">Revoked</span></td>
+                <td class="ak-right"><button type="button" class="ak-btn ak-btn-sm" disabled>Revoke</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ak-card-foot">
+          <span>Showing 4 of 128</span>
+          <span class="demo-spacer"></span>
+          <button type="button" class="ak-btn ak-btn-sm" disabled>Previous</button>
+          <button type="button" class="ak-btn ak-btn-sm">Next</button>
+        </div>
+      </section>
+
+      <div class="demo-two">
+        <section class="ak-card">
+          <div class="ak-card-head"><h2 class="ak-card-title">Grant access</h2></div>
+          <div class="ak-card-body">
+            <form class="ak-form" data-demo-form>
+              <div class="ak-field">
+                <label class="ak-label" for="f-email">Email <span class="ak-req" aria-hidden="true">*</span></label>
+                <input class="ak-input" id="f-email" type="email" required aria-describedby="f-email-hint" placeholder="buyer@example.com">
+                <div class="ak-hint" id="f-email-hint">They get an email with a sign-in link.</div>
+              </div>
+              <div class="ak-form-row">
+                <div class="ak-field">
+                  <label class="ak-label" for="f-program">Program</label>
+                  <select class="ak-select" id="f-program"><option>Foundations</option><option>Masterclass</option></select>
+                </div>
+                <div class="ak-field">
+                  <label class="ak-label" for="f-price">Price</label>
+                  <input class="ak-input" id="f-price" inputmode="decimal" value="-4" aria-invalid="true" aria-describedby="f-price-error">
+                  <div class="ak-error-text" id="f-price-error">Enter a price of zero or more.</div>
+                </div>
+              </div>
+              <div class="ak-field">
+                <label class="ak-label" for="f-note">Note</label>
+                <textarea class="ak-textarea" id="f-note" placeholder="Why this grant (only admins see it)"></textarea>
+              </div>
+              <label class="ak-check"><input type="checkbox" checked> Send the welcome email</label>
+              <div class="ak-actions">
+                <button type="submit" class="ak-btn ak-btn-primary">Grant access</button>
+                <button type="button" class="ak-btn ak-btn-ghost">Cancel</button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <section class="ak-card">
+          <div class="ak-card-head"><h2 class="ak-card-title">States</h2></div>
+          <div class="ak-empty" data-kind="no-data">
+            <div class="ak-empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 13l2.5-7h11L20 13v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M4 13h4.5l1 2h5l1-2H20"/></svg></div>
+            <p class="ak-empty-title">No orders match</p>
+            <div class="ak-empty-text">Nothing was sold to that address. Check the spelling or clear the search.</div>
+            <div class="ak-empty-action"><button type="button" class="ak-btn ak-btn-sm">Clear search</button></div>
+          </div>
+          <div class="ak-empty ak-empty-calm" data-kind="all-clear">
+            <div class="ak-empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+            <p class="ak-empty-title">All caught up</p>
+            <div class="ak-empty-text">No refund requests are waiting.</div>
+          </div>
+          <div class="ak-card-body demo-stack">
+            <span class="ak-skel-stack" aria-hidden="true"><span class="ak-skel"></span><span class="ak-skel"></span><span class="ak-skel"></span></span>
+            <p class="ak-alert ak-alert-info"><span><b>Heads up.</b> Payouts run on Fridays.</span></p>
+            <p class="ak-alert ak-alert-warning"><span><b>Card expiring.</b> Update it before Nov 1.</span></p>
+            <p class="ak-alert ak-alert-danger" role="alert"><span><b>Sync failed.</b> The last import stopped at row 41.</span><button type="button" class="ak-btn ak-btn-sm">Retry</button></p>
+          </div>
+        </section>
+      </div>
+
+      <section class="ak-card">
+        <div class="ak-card-head"><h2 class="ak-card-title">Controls and status</h2></div>
+        <div class="ak-card-body demo-stack">
+          <div class="ak-actions">
+            <button type="button" class="ak-btn ak-btn-primary">Primary</button>
+            <button type="button" class="ak-btn">Default</button>
+            <button type="button" class="ak-btn ak-btn-ghost">Ghost</button>
+            <button type="button" class="ak-btn ak-btn-danger">Danger</button>
+            <button type="button" class="ak-btn ak-btn-danger-solid">Danger solid</button>
+            <button type="button" class="ak-btn ak-btn-sm">Small</button>
+            <button type="button" class="ak-btn ak-btn-icon" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+            <button type="button" class="ak-btn" data-toast="Order archived">Archive (toast)</button>
+          </div>
+          <div class="ak-seg" role="group" aria-label="Sender rule" data-seg>
+            <button type="button" aria-pressed="true">Default</button>
+            <button type="button" aria-pressed="false">Always tell me</button>
+            <button type="button" aria-pressed="false">Silence</button>
+            <button type="button" aria-pressed="false">Archive</button>
+            <button type="button" class="ak-seg-danger" aria-pressed="false">Trash…</button>
+          </div>
+          <div class="ak-actions">
+            <span class="ak-badge">Draft</span>
+            <span class="ak-badge ak-badge-success">Active</span>
+            <span class="ak-badge ak-badge-warning">Watch</span>
+            <span class="ak-badge ak-badge-danger">Failed</span>
+            <span class="ak-badge ak-badge-info">Granted</span>
+            <span class="ak-badge ak-badge-accent">New</span>
+            <span class="ak-badge ak-badge-plain">Plain</span>
+            <span class="ak-badge ak-badge-realm">Personal</span>
+            <span class="ak-count">12</span>
+            <span class="ak-dot" role="img" aria-label="unread"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="ak-section" id="demo-charts">
+        <div class="ak-section-head">
+          <div>
+            <h2 class="ak-section-title">Charts</h2>
+            <p class="ak-section-desc">Bar (side by side or stacked), line (with a dashed comparison), sparkline and meter. A dashed mark is a gap, never zero. Hover a bar or a day for its values; "Show as table" swaps in the same rows.</p>
+          </div>
+        </div>
+        <div class="ak-stats ak-stats-cols-4">
+          <div class="ak-card ak-stat"><p class="ak-stat-label">Orders</p><p class="ak-stat-value">24</p><svg class="ak-sparkline" viewBox="0 0 100 24" preserveAspectRatio="none" role="img" aria-label="Orders, last 8 weeks: latest 24, low 11, high 24"><path class="ak-spark-line" d="M6.25 12L18.75 9.5L31.25 12.833333333333334L43.75 7L56.25 3.666666666666668M81.25 6.166666666666668L93.75 2"></path><rect class="ak-chart-hit" x="0" y="0" width="12.5" height="24"><title>Point 1: 12</title></rect><rect class="ak-chart-hit" x="12.5" y="0" width="12.5" height="24"><title>Point 2: 15</title></rect><rect class="ak-chart-hit" x="25" y="0" width="12.5" height="24"><title>Point 3: 11</title></rect><rect class="ak-chart-hit" x="37.5" y="0" width="12.5" height="24"><title>Point 4: 18</title></rect><rect class="ak-chart-hit" x="50" y="0" width="12.5" height="24"><title>Point 5: 22</title></rect><rect class="ak-chart-hit" x="62.5" y="0" width="12.5" height="24"><title>Point 6: no data</title></rect><rect class="ak-chart-hit" x="75" y="0" width="12.5" height="24"><title>Point 7: 19</title></rect><rect class="ak-chart-hit" x="87.5" y="0" width="12.5" height="24"><title>Point 8: 24</title></rect></svg></div>
+          <div class="ak-card ak-stat"><p class="ak-stat-label">Refunds</p><p class="ak-stat-value">5</p><svg class="ak-sparkline ak-sparkline-bar" viewBox="0 0 100 24" preserveAspectRatio="none" role="img" aria-label="Refunds, last 7 days: latest 5, low 0, high 5"><rect class="ak-spark-bar" x="2.1428571428571432" width="10" y="10" height="12"></rect><rect class="ak-spark-bar" x="16.42857142857143" width="10" y="21" height="1"></rect><rect class="ak-spark-bar" x="30.714285714285715" width="10" y="14" height="8"></rect><rect class="ak-spark-bar" x="59.28571428571429" width="10" y="6" height="16"></rect><rect class="ak-spark-bar" x="73.57142857142857" width="10" y="18" height="4"></rect><rect class="ak-spark-bar" x="87.85714285714286" width="10" y="2" height="20"></rect><rect class="ak-chart-hit" x="0" y="0" width="14.285714285714286" height="24"><title>Point 1: 3</title></rect><rect class="ak-chart-hit" x="14.285714285714286" y="0" width="14.285714285714286" height="24"><title>Point 2: 0</title></rect><rect class="ak-chart-hit" x="28.571428571428573" y="0" width="14.285714285714286" height="24"><title>Point 3: 2</title></rect><rect class="ak-chart-hit" x="42.85714285714286" y="0" width="14.285714285714286" height="24"><title>Point 4: no data</title></rect><rect class="ak-chart-hit" x="57.142857142857146" y="0" width="14.285714285714286" height="24"><title>Point 5: 4</title></rect><rect class="ak-chart-hit" x="71.42857142857143" y="0" width="14.285714285714286" height="24"><title>Point 6: 1</title></rect><rect class="ak-chart-hit" x="85.71428571428572" y="0" width="14.285714285714286" height="24"><title>Point 7: 5</title></rect></svg></div>
+          <div class="ak-card ak-stat"><p class="ak-stat-label">Ad budget</p><div class="ak-meter ak-meter-warning" role="meter" aria-label="Ad budget" aria-valuemin="0" aria-valuemax="10000" aria-valuenow="8400" aria-valuetext="$8,400 of $10,000 (84%)" data-tone="warning"><div class="ak-meter-text" aria-hidden="true"><span class="ak-meter-pct">84%</span><span class="ak-meter-of">$8,400 of $10,000</span></div><span class="ak-meter-track" aria-hidden="true"><svg class="ak-meter-svg" viewBox="0 0 100 8" preserveAspectRatio="none" focusable="false"><rect class="ak-meter-fill" x="0" y="0" width="84" height="8"></rect></svg></span></div></div>
+          <div class="ak-card ak-stat"><p class="ak-stat-label">Hosting</p><div class="ak-meter ak-meter-danger ak-meter-stale" role="meter" aria-label="Hosting" aria-valuemin="0" aria-valuemax="1000" aria-valuenow="1000" aria-valuetext="$1,180 of $1,000 (118%), stale" data-tone="danger"><div class="ak-meter-text" aria-hidden="true"><span class="ak-meter-pct">118%</span><span class="ak-meter-of">$1,180 of $1,000</span><span class="ak-badge ak-badge-warning">stale</span></div><span class="ak-meter-track" aria-hidden="true"><svg class="ak-meter-svg" viewBox="0 0 100 8" preserveAspectRatio="none" focusable="false"><rect class="ak-meter-fill" x="0" y="0" width="100" height="8"></rect></svg></span></div></div>
+        </div>
+        <div class="demo-two">
+          <section class="ak-card">
+            <div class="ak-card-head"><h2 class="ak-card-title">Revenue by program</h2></div>
+            <div class="ak-card-body"><figure class="ak-chart" data-kind="bar" aria-label="Revenue by program" data-testid="demo.revenue"><div class="ak-chart-head"><ul class="ak-chart-legend"><li><span class="ak-chart-key ak-chart-s1" aria-hidden="true"></span>Foundations</li><li><span class="ak-chart-key ak-chart-s2" aria-hidden="true"></span>Masterclass</li><li><span class="ak-chart-key ak-chart-s3" aria-hidden="true"></span>Studio sessions</li><li><span class="ak-chart-key ak-chart-key-gap" aria-hidden="true"></span>No data (not zero)</li></ul><span class="ak-chart-unit">USD</span><button type="button" class="ak-btn ak-btn-ghost ak-btn-sm ak-chart-toggle" data-testid="demo.revenue.action.table">Show as table</button></div><div class="ak-chart-body" aria-hidden="true"><div class="ak-chart-y"><span>10K</span><span>5K</span><span>0</span></div><div class="ak-chart-plot"><svg class="ak-chart-svg" viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false"><line class="ak-chart-grid" x1="0" x2="100" y1="0" y2="0"></line><line class="ak-chart-grid" x1="0" x2="100" y1="50" y2="50"></line><line class="ak-chart-grid" x1="0" x2="100" y1="100" y2="100"></line><line class="ak-chart-base" x1="0" x2="100" y1="100" y2="100"></line><g><rect class="ak-chart-bar ak-chart-s1" x="2.334" width="12" y="69" height="31"></rect><rect class="ak-chart-bar ak-chart-s2" x="2.334" width="12" y="57" height="12"></rect><rect class="ak-chart-bar ak-chart-s3" x="2.334" width="12" y="51" height="6"></rect></g><g><rect class="ak-chart-bar ak-chart-s1" x="19.001" width="12" y="66" height="34"></rect><rect class="ak-chart-bar ak-chart-s2" x="19.001" width="12" y="51" height="15"></rect><rect class="ak-chart-bar ak-chart-s3" x="19.001" width="12" y="46.5" height="4.5"></rect></g><g data-gap="true"><rect class="ak-chart-bar ak-chart-s1" x="35.668" width="12" y="71" height="29"></rect><rect class="ak-chart-bar ak-chart-s3" x="35.668" width="12" y="64" height="7"></rect><rect class="ak-chart-gap" x="35.668" width="12" y="56" height="8"></rect></g><g><rect class="ak-chart-bar ak-chart-s1" x="52.335" width="12" y="62" height="38"></rect><rect class="ak-chart-bar ak-chart-s2" x="52.335" width="12" y="43" height="19"></rect><rect class="ak-chart-bar ak-chart-s3" x="52.335" width="12" y="34.8" height="8.200000000000003"></rect></g><g><rect class="ak-chart-bar ak-chart-s1" x="69.002" width="12" y="58" height="42"></rect><rect class="ak-chart-bar ak-chart-s2" x="69.002" width="12" y="35" height="23"></rect><rect class="ak-chart-bar ak-chart-s3" x="69.002" width="12" y="25.9" height="9.100000000000001"></rect></g><g><rect class="ak-chart-bar ak-chart-s1" x="85.669" width="12" y="79" height="21"></rect><rect class="ak-chart-bar ak-chart-s2" x="85.669" width="12" y="68" height="11"></rect><rect class="ak-chart-bar ak-chart-s3" x="85.669" width="12" y="64.2" height="3.799999999999997"></rect></g><rect class="ak-chart-hit" x="0" y="0" width="16.667" height="100"><title>Jun: Foundations $3,100, Masterclass $1,200, Studio sessions $600</title></rect><rect class="ak-chart-hit" x="16.667" y="0" width="16.667" height="100"><title>Jul: Foundations $3,400, Masterclass $1,500, Studio sessions $450</title></rect><rect class="ak-chart-hit" x="33.334" y="0" width="16.667" height="100"><title>Aug: Foundations $2,900, Masterclass no data, Studio sessions $700</title></rect><rect class="ak-chart-hit" x="50.001" y="0" width="16.667" height="100"><title>Sep: Foundations $3,800, Masterclass $1,900, Studio sessions $820</title></rect><rect class="ak-chart-hit" x="66.668" y="0" width="16.667" height="100"><title>Oct: Foundations $4,200, Masterclass $2,300, Studio sessions $910</title></rect><rect class="ak-chart-hit" x="83.335" y="0" width="16.667" height="100"><title>Nov: Foundations $2,100, Masterclass $1,100, Studio sessions $380</title></rect></svg><div class="ak-chart-x"><span class=""><span>Jun</span></span><span class="ak-chart-tick-minor"><span>Jul</span></span><span class=""><span>Aug</span></span><span class="ak-chart-tick-minor"><span>Sep</span></span><span class=""><span>Oct</span></span><span class="ak-chart-tick-minor"><span>Nov</span></span></div></div></div><div class="ak-table-wrap ak-chart-table ak-sr-only"><table class="ak-table"><caption class="ak-sr-only">Revenue by program (USD)</caption><thead><tr><th scope="col">Month</th><th scope="col" class="ak-right">Foundations</th><th scope="col" class="ak-right">Masterclass</th><th scope="col" class="ak-right">Studio sessions</th><th scope="col" class="ak-right">Total</th></tr></thead><tbody><tr data-testid="demo.revenue.row" data-row-id="2026-06"><th scope="row">Jun</th><td class="ak-right ak-num" data-testid="demo.revenue.found">$3,100</td><td class="ak-right ak-num" data-testid="demo.revenue.master">$1,200</td><td class="ak-right ak-num" data-testid="demo.revenue.studio">$600</td><td class="ak-right ak-num" data-testid="demo.revenue.total">$4,900</td></tr><tr data-testid="demo.revenue.row" data-row-id="2026-07"><th scope="row">Jul</th><td class="ak-right ak-num" data-testid="demo.revenue.found">$3,400</td><td class="ak-right ak-num" data-testid="demo.revenue.master">$1,500</td><td class="ak-right ak-num" data-testid="demo.revenue.studio">$450</td><td class="ak-right ak-num" data-testid="demo.revenue.total">$5,350</td></tr><tr data-testid="demo.revenue.row" data-row-id="2026-08"><th scope="row">Aug</th><td class="ak-right ak-num" data-testid="demo.revenue.found">$2,900</td><td class="ak-right ak-num" data-testid="demo.revenue.master"><span aria-hidden="true">—</span><span class="ak-sr-only">no data</span></td><td class="ak-right ak-num" data-testid="demo.revenue.studio">$700</td><td class="ak-right ak-num" data-testid="demo.revenue.total"><span aria-hidden="true">—</span><span class="ak-sr-only">no data</span></td></tr><tr data-testid="demo.revenue.row" data-row-id="2026-09"><th scope="row">Sep</th><td class="ak-right ak-num" data-testid="demo.revenue.found">$3,800</td><td class="ak-right ak-num" data-testid="demo.revenue.master">$1,900</td><td class="ak-right ak-num" data-testid="demo.revenue.studio">$820</td><td class="ak-right ak-num" data-testid="demo.revenue.total">$6,520</td></tr><tr data-testid="demo.revenue.row" data-row-id="2026-10"><th scope="row">Oct</th><td class="ak-right ak-num" data-testid="demo.revenue.found">$4,200</td><td class="ak-right ak-num" data-testid="demo.revenue.master">$2,300</td><td class="ak-right ak-num" data-testid="demo.revenue.studio">$910</td><td class="ak-right ak-num" data-testid="demo.revenue.total">$7,410</td></tr><tr data-testid="demo.revenue.row" data-row-id="2026-11"><th scope="row">Nov</th><td class="ak-right ak-num" data-testid="demo.revenue.found">$2,100</td><td class="ak-right ak-num" data-testid="demo.revenue.master">$1,100</td><td class="ak-right ak-num" data-testid="demo.revenue.studio">$380</td><td class="ak-right ak-num" data-testid="demo.revenue.total">$3,580</td></tr></tbody></table></div></figure></div>
+          </section>
+          <section class="ak-card">
+            <div class="ak-card-head"><h2 class="ak-card-title">Cumulative orders</h2></div>
+            <div class="ak-card-body"><figure class="ak-chart" data-kind="line" aria-label="Cumulative orders" data-testid="demo.orders"><div class="ak-chart-head"><ul class="ak-chart-legend"><li><span class="ak-chart-key ak-chart-s1 ak-chart-key-line" aria-hidden="true"></span>November</li><li><span class="ak-chart-key ak-chart-s1 ak-chart-key-line ak-chart-key-dashed" aria-hidden="true"></span>October</li><li><span class="ak-chart-key ak-chart-key-gap" aria-hidden="true"></span>No data (not zero)</li></ul><span class="ak-chart-unit">orders</span><button type="button" class="ak-btn ak-btn-ghost ak-btn-sm ak-chart-toggle" data-testid="demo.orders.action.table">Show as table</button></div><div class="ak-chart-body" aria-hidden="true"><div class="ak-chart-y"><span>200</span><span>100</span><span>0</span></div><div class="ak-chart-plot"><svg class="ak-chart-svg" viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false"><line class="ak-chart-grid" x1="0" x2="100" y1="0" y2="0"></line><line class="ak-chart-grid" x1="0" x2="100" y1="50" y2="50"></line><line class="ak-chart-grid" x1="0" x2="100" y1="100" y2="100"></line><line class="ak-chart-base" x1="0" x2="100" y1="100" y2="100"></line><path class="ak-chart-line ak-chart-s1" d="M1.6665 98L4.9995 95.5L8.3325 92.5L11.665500000000002 90.5L14.9985 88L18.3315 85L21.6645 83L24.9975 80.5L28.3305 77.5M34.9965 73L38.329499999999996 70L41.6625 68L44.9955 65.5" data-series="now"></path><path class="ak-chart-line ak-chart-s1 ak-chart-line-dashed" d="M1.6665 98.5L4.9995 96.5L8.3325 94L11.665500000000002 91L14.9985 89.5L18.3315 87.5L21.6645 85L24.9975 82L28.3305 80.5L31.6635 78.5L34.9965 76L38.329499999999996 73L41.6625 71.5L44.9955 69.5L48.3285 67L51.6615 64L54.9945 62.5L58.3275 60.5L61.6605 58L64.9935 55L68.3265 53.5L71.6595 51.5L74.99249999999999 49L78.3255 46L81.6585 44.5L84.9915 42.5L88.3245 40L91.6575 37L94.9905 35.5L98.3235 33.5" data-series="prev"></path><rect class="ak-chart-hit" x="0" y="0" width="3.333" height="100"><title>Nov 1: November 4 orders, October 3 orders</title></rect><rect class="ak-chart-hit" x="3.333" y="0" width="3.333" height="100"><title>Nov 2: November 9 orders, October 7 orders</title></rect><rect class="ak-chart-hit" x="6.666" y="0" width="3.333" height="100"><title>Nov 3: November 15 orders, October 12 orders</title></rect><rect class="ak-chart-hit" x="9.999" y="0" width="3.333" height="100"><title>Nov 4: November 19 orders, October 18 orders</title></rect><rect class="ak-chart-hit" x="13.332" y="0" width="3.333" height="100"><title>Nov 5: November 24 orders, October 21 orders</title></rect><rect class="ak-chart-hit" x="16.665" y="0" width="3.333" height="100"><title>Nov 6: November 30 orders, October 25 orders</title></rect><rect class="ak-chart-hit" x="19.998" y="0" width="3.333" height="100"><title>Nov 7: November 34 orders, October 30 orders</title></rect><rect class="ak-chart-hit" x="23.331" y="0" width="3.333" height="100"><title>Nov 8: November 39 orders, October 36 orders</title></rect><rect class="ak-chart-hit" x="26.664" y="0" width="3.333" height="100"><title>Nov 9: November 45 orders, October 39 orders</title></rect><rect class="ak-chart-hit" x="29.997" y="0" width="3.333" height="100"><title>Nov 10: November no data, October 43 orders</title></rect><rect class="ak-chart-hit" x="33.33" y="0" width="3.333" height="100"><title>Nov 11: November 54 orders, October 48 orders</title></rect><rect class="ak-chart-hit" x="36.663" y="0" width="3.333" height="100"><title>Nov 12: November 60 orders, October 54 orders</title></rect><rect class="ak-chart-hit" x="39.996" y="0" width="3.333" height="100"><title>Nov 13: November 64 orders, October 57 orders</title></rect><rect class="ak-chart-hit" x="43.329" y="0" width="3.333" height="100"><title>Nov 14: November 69 orders, October 61 orders</title></rect><rect class="ak-chart-hit" x="46.662" y="0" width="3.333" height="100"><title>Nov 15: November no data, October 66 orders</title></rect><rect class="ak-chart-hit" x="49.995" y="0" width="3.333" height="100"><title>Nov 16: November no data, October 72 orders</title></rect><rect class="ak-chart-hit" x="53.328" y="0" width="3.333" height="100"><title>Nov 17: November no data, October 75 orders</title></rect><rect class="ak-chart-hit" x="56.661" y="0" width="3.333" height="100"><title>Nov 18: November no data, October 79 orders</title></rect><rect class="ak-chart-hit" x="59.994" y="0" width="3.333" height="100"><title>Nov 19: November no data, October 84 orders</title></rect><rect class="ak-chart-hit" x="63.327" y="0" width="3.333" height="100"><title>Nov 20: November no data, October 90 orders</title></rect><rect class="ak-chart-hit" x="66.66" y="0" width="3.333" height="100"><title>Nov 21: November no data, October 93 orders</title></rect><rect class="ak-chart-hit" x="69.993" y="0" width="3.333" height="100"><title>Nov 22: November no data, October 97 orders</title></rect><rect class="ak-chart-hit" x="73.326" y="0" width="3.333" height="100"><title>Nov 23: November no data, October 102 orders</title></rect><rect class="ak-chart-hit" x="76.659" y="0" width="3.333" height="100"><title>Nov 24: November no data, October 108 orders</title></rect><rect class="ak-chart-hit" x="79.992" y="0" width="3.333" height="100"><title>Nov 25: November no data, October 111 orders</title></rect><rect class="ak-chart-hit" x="83.325" y="0" width="3.333" height="100"><title>Nov 26: November no data, October 115 orders</title></rect><rect class="ak-chart-hit" x="86.658" y="0" width="3.333" height="100"><title>Nov 27: November no data, October 120 orders</title></rect><rect class="ak-chart-hit" x="89.991" y="0" width="3.333" height="100"><title>Nov 28: November no data, October 126 orders</title></rect><rect class="ak-chart-hit" x="93.324" y="0" width="3.333" height="100"><title>Nov 29: November no data, October 129 orders</title></rect><rect class="ak-chart-hit" x="96.657" y="0" width="3.333" height="100"><title>Nov 30: November no data, October 133 orders</title></rect></svg><div class="ak-chart-x"><span class=""><span>Nov 1</span></span><span class=""></span><span class=""></span><span class=""></span><span class="ak-chart-tick-minor"><span>Nov 5</span></span><span class=""></span><span class=""></span><span class=""></span><span class=""><span>Nov 9</span></span><span class=""></span><span class=""></span><span class=""></span><span class="ak-chart-tick-minor"><span>Nov 13</span></span><span class=""></span><span class=""></span><span class=""></span><span class=""><span>Nov 17</span></span><span class=""></span><span class=""></span><span class=""></span><span class="ak-chart-tick-minor"><span>Nov 21</span></span><span class=""></span><span class=""></span><span class=""></span><span class=""><span>Nov 25</span></span><span class=""></span><span class=""></span><span class=""></span><span class="ak-chart-tick-minor"><span>Nov 29</span></span><span class=""></span></div></div></div><div class="ak-table-wrap ak-chart-table ak-sr-only"><table class="ak-table"><caption class="ak-sr-only">Cumulative orders (orders)</caption><thead><tr><th scope="col">Day</th><th scope="col" class="ak-right">November</th><th scope="col" class="ak-right">October</th></tr></thead><tbody><tr data-testid="demo.orders.row" data-row-id="d1"><th scope="row">Nov 1</th><td class="ak-right ak-num" data-testid="demo.orders.now">4 orders</td><td class="ak-right ak-num" data-testid="demo.orders.prev">3 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d2"><th scope="row">Nov 2</th><td class="ak-right ak-num" data-testid="demo.orders.now">9 orders</td><td class="ak-right ak-num" data-testid="demo.orders.prev">7 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d3"><th scope="row">Nov 3</th><td class="ak-right ak-num" data-testid="demo.orders.now">15 orders</td><td class="ak-right ak-num" data-testid="demo.orders.prev">12 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d4"><th scope="row">Nov 4</th><td class="ak-right ak-num" data-testid="demo.orders.now">19 orders</td><td class="ak-right ak-num" data-testid="demo.orders.prev">18 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d5"><th scope="row">Nov 5</th><td class="ak-right ak-num" data-testid="demo.orders.now">24 orders</td><td class="ak-right ak-num" data-testid="demo.orders.prev">21 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d6"><th scope="row">Nov 6</th><td class="ak-right ak-num" data-testid="demo.orders.now">30 orders</td><td class="ak-right ak-num" data-testid="demo.orders.prev">25 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d7"><th scope="row">Nov 7</th><td class="ak-right ak-num" data-testid="demo.orders.now">34 orders</td><td class="ak-right ak-num" data-testid="demo.orders.prev">30 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d8"><th scope="row">Nov 8</th><td class="ak-right ak-num" data-testid="demo.orders.now">39 orders</td><td class="ak-right ak-num" data-testid="demo.orders.prev">36 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d9"><th scope="row">Nov 9</th><td class="ak-right ak-num" data-testid="demo.orders.now">45 orders</td><td class="ak-right ak-num" data-testid="demo.orders.prev">39 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d10"><th scope="row">Nov 10</th><td class="ak-right ak-num" data-testid="demo.orders.now"><span aria-hidden="true">—</span><span class="ak-sr-only">no data</span></td><td class="ak-right ak-num" data-testid="demo.orders.prev">43 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d11"><th scope="row">Nov 11</th><td class="ak-right ak-num" data-testid="demo.orders.now">54 orders</td><td class="ak-right ak-num" data-testid="demo.orders.prev">48 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d12"><th scope="row">Nov 12</th><td class="ak-right ak-num" data-testid="demo.orders.now">60 orders</td><td class="ak-right ak-num" data-testid="demo.orders.prev">54 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d13"><th scope="row">Nov 13</th><td class="ak-right ak-num" data-testid="demo.orders.now">64 orders</td><td class="ak-right ak-num" data-testid="demo.orders.prev">57 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d14"><th scope="row">Nov 14</th><td class="ak-right ak-num" data-testid="demo.orders.now">69 orders</td><td class="ak-right ak-num" data-testid="demo.orders.prev">61 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d15"><th scope="row">Nov 15</th><td class="ak-right ak-num" data-testid="demo.orders.now"><span aria-hidden="true">—</span><span class="ak-sr-only">no data</span></td><td class="ak-right ak-num" data-testid="demo.orders.prev">66 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d16"><th scope="row">Nov 16</th><td class="ak-right ak-num" data-testid="demo.orders.now"><span aria-hidden="true">—</span><span class="ak-sr-only">no data</span></td><td class="ak-right ak-num" data-testid="demo.orders.prev">72 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d17"><th scope="row">Nov 17</th><td class="ak-right ak-num" data-testid="demo.orders.now"><span aria-hidden="true">—</span><span class="ak-sr-only">no data</span></td><td class="ak-right ak-num" data-testid="demo.orders.prev">75 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d18"><th scope="row">Nov 18</th><td class="ak-right ak-num" data-testid="demo.orders.now"><span aria-hidden="true">—</span><span class="ak-sr-only">no data</span></td><td class="ak-right ak-num" data-testid="demo.orders.prev">79 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d19"><th scope="row">Nov 19</th><td class="ak-right ak-num" data-testid="demo.orders.now"><span aria-hidden="true">—</span><span class="ak-sr-only">no data</span></td><td class="ak-right ak-num" data-testid="demo.orders.prev">84 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d20"><th scope="row">Nov 20</th><td class="ak-right ak-num" data-testid="demo.orders.now"><span aria-hidden="true">—</span><span class="ak-sr-only">no data</span></td><td class="ak-right ak-num" data-testid="demo.orders.prev">90 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d21"><th scope="row">Nov 21</th><td class="ak-right ak-num" data-testid="demo.orders.now"><span aria-hidden="true">—</span><span class="ak-sr-only">no data</span></td><td class="ak-right ak-num" data-testid="demo.orders.prev">93 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d22"><th scope="row">Nov 22</th><td class="ak-right ak-num" data-testid="demo.orders.now"><span aria-hidden="true">—</span><span class="ak-sr-only">no data</span></td><td class="ak-right ak-num" data-testid="demo.orders.prev">97 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d23"><th scope="row">Nov 23</th><td class="ak-right ak-num" data-testid="demo.orders.now"><span aria-hidden="true">—</span><span class="ak-sr-only">no data</span></td><td class="ak-right ak-num" data-testid="demo.orders.prev">102 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d24"><th scope="row">Nov 24</th><td class="ak-right ak-num" data-testid="demo.orders.now"><span aria-hidden="true">—</span><span class="ak-sr-only">no data</span></td><td class="ak-right ak-num" data-testid="demo.orders.prev">108 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d25"><th scope="row">Nov 25</th><td class="ak-right ak-num" data-testid="demo.orders.now"><span aria-hidden="true">—</span><span class="ak-sr-only">no data</span></td><td class="ak-right ak-num" data-testid="demo.orders.prev">111 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d26"><th scope="row">Nov 26</th><td class="ak-right ak-num" data-testid="demo.orders.now"><span aria-hidden="true">—</span><span class="ak-sr-only">no data</span></td><td class="ak-right ak-num" data-testid="demo.orders.prev">115 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d27"><th scope="row">Nov 27</th><td class="ak-right ak-num" data-testid="demo.orders.now"><span aria-hidden="true">—</span><span class="ak-sr-only">no data</span></td><td class="ak-right ak-num" data-testid="demo.orders.prev">120 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d28"><th scope="row">Nov 28</th><td class="ak-right ak-num" data-testid="demo.orders.now"><span aria-hidden="true">—</span><span class="ak-sr-only">no data</span></td><td class="ak-right ak-num" data-testid="demo.orders.prev">126 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d29"><th scope="row">Nov 29</th><td class="ak-right ak-num" data-testid="demo.orders.now"><span aria-hidden="true">—</span><span class="ak-sr-only">no data</span></td><td class="ak-right ak-num" data-testid="demo.orders.prev">129 orders</td></tr><tr data-testid="demo.orders.row" data-row-id="d30"><th scope="row">Nov 30</th><td class="ak-right ak-num" data-testid="demo.orders.now"><span aria-hidden="true">—</span><span class="ak-sr-only">no data</span></td><td class="ak-right ak-num" data-testid="demo.orders.prev">133 orders</td></tr></tbody></table></div></figure></div>
+          </section>
+        </div>
+        <section class="ak-card">
+          <div class="ak-card-head"><h2 class="ak-card-title">Programs</h2></div>
+          <div class="ak-table-wrap">
+            <table class="ak-table">
+              <thead><tr><th>Program</th><th>Sales, 6 weeks</th><th>Seats</th></tr></thead>
+              <tbody>
+                <tr><td class="ak-primary-cell">Foundations</td><td><svg class="ak-sparkline" viewBox="0 0 100 24" preserveAspectRatio="none" role="img" aria-label="Foundations sales: latest 11, low 5, high 11"><path class="ak-spark-line" d="M8.333333333333334 12.90909090909091L25 9.272727272727273L41.66666666666667 11.090909090909092L58.333333333333336 5.636363636363637L75 7.454545454545453L91.66666666666667 2"></path><rect class="ak-chart-hit" x="0" y="0" width="16.666666666666668" height="24"><title>Point 1: 5</title></rect><rect class="ak-chart-hit" x="16.666666666666668" y="0" width="16.666666666666668" height="24"><title>Point 2: 7</title></rect><rect class="ak-chart-hit" x="33.333333333333336" y="0" width="16.666666666666668" height="24"><title>Point 3: 6</title></rect><rect class="ak-chart-hit" x="50" y="0" width="16.666666666666668" height="24"><title>Point 4: 9</title></rect><rect class="ak-chart-hit" x="66.66666666666667" y="0" width="16.666666666666668" height="24"><title>Point 5: 8</title></rect><rect class="ak-chart-hit" x="83.33333333333334" y="0" width="16.666666666666668" height="24"><title>Point 6: 11</title></rect></svg></td><td><div class="ak-meter ak-meter-inline" role="meter" aria-label="Foundations seats" aria-valuemin="0" aria-valuemax="50" aria-valuenow="42" aria-valuetext="42 of 50 (84%)" data-tone="default"><span class="ak-meter-track" aria-hidden="true"><svg class="ak-meter-svg" viewBox="0 0 100 8" preserveAspectRatio="none" focusable="false"><rect class="ak-meter-fill" x="0" y="0" width="84" height="8"></rect></svg></span><span class="ak-meter-pct" aria-hidden="true">84%</span></div></td></tr>
+                <tr><td class="ak-primary-cell">Masterclass</td><td><svg class="ak-sparkline" viewBox="0 0 100 24" preserveAspectRatio="none" role="img" aria-label="Masterclass sales: latest 2, low 1, high 4"><path class="ak-spark-line" d="M8.333333333333334 12L25 17M58.333333333333336 7L75 2L91.66666666666667 12"></path><rect class="ak-chart-hit" x="0" y="0" width="16.666666666666668" height="24"><title>Point 1: 2</title></rect><rect class="ak-chart-hit" x="16.666666666666668" y="0" width="16.666666666666668" height="24"><title>Point 2: 1</title></rect><rect class="ak-chart-hit" x="33.333333333333336" y="0" width="16.666666666666668" height="24"><title>Point 3: no data</title></rect><rect class="ak-chart-hit" x="50" y="0" width="16.666666666666668" height="24"><title>Point 4: 3</title></rect><rect class="ak-chart-hit" x="66.66666666666667" y="0" width="16.666666666666668" height="24"><title>Point 5: 4</title></rect><rect class="ak-chart-hit" x="83.33333333333334" y="0" width="16.666666666666668" height="24"><title>Point 6: 2</title></rect></svg></td><td><div class="ak-meter ak-meter-inline" role="meter" aria-label="Masterclass seats" aria-valuemin="0" aria-valuemax="40" aria-valuenow="12" aria-valuetext="12 of 40 (30%)" data-tone="default"><span class="ak-meter-track" aria-hidden="true"><svg class="ak-meter-svg" viewBox="0 0 100 8" preserveAspectRatio="none" focusable="false"><rect class="ak-meter-fill" x="0" y="0" width="30" height="8"></rect></svg></span><span class="ak-meter-pct" aria-hidden="true">30%</span></div></td></tr>
+                <tr><td class="ak-primary-cell">Studio sessions</td><td><span class="ak-unknown" data-state="unknown"><span aria-hidden="true">—</span><span class="ak-sr-only">Studio sales: no data</span></span></td><td><span class="ak-unknown" data-state="unknown"><span aria-hidden="true">—</span><span class="ak-sr-only">Studio seats: no data</span></span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+
+      <section class="ak-section">
+        <div class="ak-section-head">
+          <div>
+            <h2 class="ak-section-title">Theme scopes</h2>
+            <p class="ak-section-desc">Any element can pin a theme with data-theme. Both panels below stay put whatever the page theme is.</p>
+          </div>
+        </div>
+        <div class="demo-two">
+          <div class="ak-card" data-theme="light">
+            <div class="ak-card-head"><h3 class="ak-card-title">Light</h3><span class="ak-badge ak-badge-success">Healthy</span></div>
+            <ul class="ak-list">
+              <li class="ak-list-group"><span>Today</span><span>2</span></li>
+              <li class="ak-row ak-row-unread"><span class="ak-avatar">AN</span><div class="ak-row-main"><div class="ak-row-title">Invoice for October</div><div class="ak-row-meta">Ana N. · 10:25</div></div><div class="ak-row-side"><span class="ak-badge ak-badge-info">Billing</span></div></li>
+              <li class="ak-row"><span class="ak-avatar">BO</span><div class="ak-row-main"><div class="ak-row-title">Weekly digest</div><div class="ak-row-meta">Ben O. · 08:02</div></div><div class="ak-row-side"><span class="ak-badge">News</span></div></li>
+            </ul>
+          </div>
+          <div class="ak-card" data-theme="dark">
+            <div class="ak-card-head"><h3 class="ak-card-title">Dark</h3><span class="ak-badge ak-badge-warning">Watch</span></div>
+            <ul class="ak-list">
+              <li class="ak-list-group"><span>Today</span><span>2</span></li>
+              <li class="ak-row ak-row-unread"><span class="ak-avatar">AN</span><div class="ak-row-main"><div class="ak-row-title">Invoice for October</div><div class="ak-row-meta">Ana N. · 10:25</div></div><div class="ak-row-side"><span class="ak-badge ak-badge-info">Billing</span></div></li>
+              <li class="ak-row"><span class="ak-avatar">BO</span><div class="ak-row-main"><div class="ak-row-title">Weekly digest</div><div class="ak-row-meta">Ben O. · 08:02</div></div><div class="ak-row-side"><span class="ak-badge">News</span></div></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<dialog class="ak-dialog" id="revoke" aria-labelledby="revoke-title" aria-describedby="revoke-body">
+  <div class="ak-dialog-head"><h2 class="ak-dialog-title" id="revoke-title">Revoke access?</h2></div>
+  <div class="ak-dialog-body" id="revoke-body"><p>The buyer loses the program at once. You can grant it again later.</p></div>
+  <div class="ak-dialog-foot">
+    <button type="button" class="ak-btn" data-dialog-cancel>Cancel</button>
+    <button type="button" class="ak-btn ak-btn-danger-solid" data-dialog-confirm>Revoke access</button>
+  </div>
+</dialog>
+
+<div class="ak-toasts" role="status" aria-live="polite"></div>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>Admin kit demo: layout and data</title>
+  <link rel="stylesheet" href="../packages/admin-tokens/tokens.css">
+  <link rel="stylesheet" href="../packages/admin-css/components.css">
+  <link rel="stylesheet" href="demo.css">
+  <script type="module" src="data.js"></script>
+</head>
+<body class="ak-root">
+<!-- The markup the React components render, written out by hand so the page needs no
+     bundler. data.js wires the behaviour a server-rendered page would. -->
+<main class="ak-content">
+  <header class="ak-page-head">
+    <div>
+      <div class="ak-page-back"><a href="index.html">← Components</a></div>
+      <h1 class="ak-page-title">Leads</h1>
+      <p class="ak-page-desc">Layout and data components: filter bar, period control, data table, drawer, values, queue, palette. Press <kbd class="ak-kbd">/</kbd> to search.</p>
+    </div>
+    <div class="ak-actions">
+      <div class="ak-seg" role="group" aria-label="Theme">
+        <button type="button" data-theme-choice="auto" aria-pressed="true">Auto</button>
+        <button type="button" data-theme-choice="light" aria-pressed="false">Light</button>
+        <button type="button" data-theme-choice="dark" aria-pressed="false">Dark</button>
+      </div>
+      <button type="button" class="ak-btn" data-open-palette>Search</button>
+      <button type="button" class="ak-btn ak-btn-danger" data-open-tier>Delete all (T3)</button>
+    </div>
+  </header>
+
+  <!-- FilterBar with a PeriodControl (month stepper and compare), a segmented filter with counts, a select and search. -->
+  <div class="ak-filterbar" role="group" aria-label="Filters" data-testid="sales-leads.filters">
+    <div class="ak-period" data-testid="sales-leads.period">
+      <div class="ak-filter">
+        <span class="ak-filter-label">Period</span>
+        <div class="ak-seg" role="group" aria-label="Period" data-seg>
+          <button type="button" aria-pressed="false">7 days</button>
+          <button type="button" aria-pressed="false">30 days</button>
+          <button type="button" aria-pressed="true">Month</button>
+          <button type="button" aria-pressed="false">This year</button>
+          <button type="button" aria-pressed="false">Custom</button>
+        </div>
+      </div>
+      <div class="ak-period-stepper" role="group" aria-label="Month">
+        <button type="button" class="ak-btn ak-btn-sm ak-btn-icon" aria-label="Previous month">‹</button>
+        <span class="ak-period-month">October 2026</span>
+        <button type="button" class="ak-btn ak-btn-sm ak-btn-icon" aria-label="Next month">›</button>
+      </div>
+      <label class="ak-check ak-period-compare"><input type="checkbox" checked> vs previous period</label>
+      <span class="ak-period-range ak-num">2026-10-01 – 2026-10-31<span class="ak-muted"> vs 2026-09-01 – 2026-09-30</span></span>
+    </div>
+    <div class="ak-filter">
+      <span class="ak-filter-label">Stage</span>
+      <div class="ak-seg" role="group" aria-label="Stage" data-seg>
+        <button type="button" aria-pressed="true">All <span class="ak-seg-count">14</span></button>
+        <button type="button" aria-pressed="false">Overdue <span class="ak-seg-count">3</span></button>
+        <button type="button" aria-pressed="false">Talking <span class="ak-seg-count">6</span></button>
+        <button type="button" aria-pressed="false">Won <span class="ak-seg-count">2</span></button>
+      </div>
+    </div>
+    <div class="ak-filter">
+      <label class="ak-filter-label" for="f-owner">Owner</label>
+      <select class="ak-select" id="f-owner"><option>All</option><option>Ana (5)</option><option>Ben (9)</option></select>
+    </div>
+    <div class="ak-filter ak-filter-search">
+      <label class="ak-filter-label" for="f-q">Search</label>
+      <input class="ak-input" id="f-q" type="search" placeholder="Name or company">
+    </div>
+    <button type="button" class="ak-btn ak-btn-ghost ak-btn-sm ak-filterbar-clear">Clear filters</button>
+  </div>
+
+  <!-- DataTable: bulk bar, grouping by day, inline-edit cells, value rules, row-action menu, pager. -->
+  <section class="ak-card ak-dtable" aria-label="Leads" data-testid="sales-leads.table">
+    <div class="ak-dtable-bar">
+      <div class="ak-dtable-bulk" role="group" aria-label="Selected rows">
+        <span class="ak-dtable-bulk-count">1 selected</span>
+        <button type="button" class="ak-btn ak-btn-sm">Mark lost</button>
+        <button type="button" class="ak-btn ak-btn-ghost ak-btn-sm">Clear</button>
+      </div>
+      <button type="button" class="ak-btn ak-btn-sm ak-dtable-export">Export CSV</button>
+    </div>
+    <div class="ak-table-wrap">
+      <table class="ak-table ak-dtable-table" aria-label="Leads">
+        <thead>
+          <tr>
+            <th class="ak-dtable-select"><input type="checkbox" class="ak-dtable-check" aria-label="Select all rows on this page"></th>
+            <th scope="col">Contact</th><th scope="col">Stage</th><th scope="col" class="ak-right">Value</th><th scope="col">Follow up</th><th scope="col">Note</th><th scope="col">Updated</th>
+            <th class="ak-dtable-actions"><span class="ak-sr-only">Actions</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="ak-dtable-group"><th colspan="8" scope="colgroup"><span>2026-11-14</span><span class="ak-dtable-group-count">2</span></th></tr>
+          <tr class="ak-dtable-row ak-dtable-row-open ak-dtable-row-selected" data-row-id="L1" aria-selected="true" data-open-drawer>
+            <td class="ak-dtable-select"><input type="checkbox" class="ak-dtable-check" aria-label="Select row L1" checked></td>
+            <td class="ak-primary-cell ak-dtable-primary" data-label="Contact"><button type="button" class="ak-link-btn">A. Example</button></td>
+            <td data-label="Stage"><span class="ak-badge ak-badge-info">Talking</span></td>
+            <td class="ak-right ak-num" data-label="Value"><span class="ak-value ak-num ak-money ak-money-notional" data-money-kind="notional" title="Notional: not billed">$4,200.00<span class="ak-sr-only"> (notional)</span></span></td>
+            <td data-label="Follow up"><time class="ak-value ak-num" datetime="2026-11-18">2026-11-18</time></td>
+            <td data-label="Note"><span class="ak-iedit" data-state="idle"><button type="button" class="ak-iedit-view" aria-label="Note for A. Example: call Tue. Edit" title="Edit">call Tue</button></span></td>
+            <td data-label="Updated"><time class="ak-value" datetime="2026-11-14T09:14:00Z" title="2026-11-14 09:14:00 UTC">3 h ago</time></td>
+            <td class="ak-right ak-dtable-actions"><span class="ak-menu"><button type="button" class="ak-btn ak-btn-ghost ak-btn-sm ak-btn-icon" aria-label="Actions for L1" aria-haspopup="menu" aria-expanded="false" data-menu><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M5 12h.01M12 12h.01M19 12h.01"/></svg></button></span></td>
+          </tr>
+          <tr class="ak-dtable-row ak-dtable-row-open" data-row-id="L2" aria-selected="false" data-open-drawer>
+            <td class="ak-dtable-select"><input type="checkbox" class="ak-dtable-check" aria-label="Select row L2"></td>
+            <td class="ak-primary-cell ak-dtable-primary" data-label="Contact"><button type="button" class="ak-link-btn">Example Studio</button></td>
+            <td data-label="Stage"><span class="ak-badge ak-badge-success">Won</span></td>
+            <td class="ak-right ak-num" data-label="Value"><span class="ak-value ak-num ak-money" data-money-kind="billed">$1,250.00</span></td>
+            <td data-label="Follow up"><span class="ak-unknown" title="Unknown"><span aria-hidden="true">—</span><span class="ak-sr-only">unknown</span></span></td>
+            <td data-label="Note"><span class="ak-iedit" data-state="locked"><button type="button" class="ak-iedit-view" disabled title="Still loading">signed</button></span></td>
+            <td data-label="Updated"><time class="ak-value" datetime="2026-11-14T11:58:00Z" title="2026-11-14 11:58:00 UTC">just now</time></td>
+            <td class="ak-right ak-dtable-actions"><span class="ak-menu"><button type="button" class="ak-btn ak-btn-ghost ak-btn-sm ak-btn-icon" aria-label="Actions for L2" aria-haspopup="menu" aria-expanded="false" data-menu><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M5 12h.01M12 12h.01M19 12h.01"/></svg></button></span></td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr class="ak-dtable-group"><th colspan="8" scope="colgroup"><span>2026-11-13</span><span class="ak-dtable-group-count">1</span></th></tr>
+          <tr class="ak-dtable-row ak-dtable-row-open" data-row-id="L3" aria-selected="false" data-open-drawer>
+            <td class="ak-dtable-select"><input type="checkbox" class="ak-dtable-check" aria-label="Select row L3"></td>
+            <td class="ak-primary-cell ak-dtable-primary" data-label="Contact"><button type="button" class="ak-link-btn">Sample Co</button></td>
+            <td data-label="Stage"><span class="ak-badge ak-badge-danger">Lost</span></td>
+            <td class="ak-right ak-num" data-label="Value"><span class="ak-value ak-num ak-money ak-money-negative" data-money-kind="billed">-$80.00</span></td>
+            <td data-label="Follow up"><time class="ak-value ak-num" datetime="2026-11-20">2026-11-20</time></td>
+            <td data-label="Note"><span class="ak-iedit" data-state="editing"><input class="ak-input ak-iedit-field" aria-label="Note for Sample Co" value="refund issued"></span></td>
+            <td data-label="Updated"><time class="ak-value" datetime="2026-11-13T07:02:00Z" title="2026-11-13 07:02:00 UTC">1 d ago</time></td>
+            <td class="ak-right ak-dtable-actions"><span class="ak-menu"><button type="button" class="ak-btn ak-btn-ghost ak-btn-sm ak-btn-icon" aria-label="Actions for L3" aria-haspopup="menu" aria-expanded="false" data-menu><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M5 12h.01M12 12h.01M19 12h.01"/></svg></button></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <nav class="ak-card-foot ak-dtable-pager" aria-label="Leads pages">
+      <span class="ak-num">1–50 of 132</span><span class="ak-dtable-pager-gap"></span>
+      <button type="button" class="ak-btn ak-btn-sm" disabled>Previous</button>
+      <span class="ak-num" aria-current="page">Page 1 of 3</span>
+      <button type="button" class="ak-btn ak-btn-sm">Next</button>
+    </nav>
+  </section>
+  <div class="ak-menu-list" role="menu" aria-label="Row actions" hidden data-menu-list>
+    <button type="button" role="menuitem" tabindex="-1" class="ak-menu-item">Won</button>
+    <button type="button" role="menuitem" tabindex="-1" class="ak-menu-item ak-menu-item-danger">Lost</button>
+    <button type="button" role="menuitem" tabindex="-1" class="ak-menu-item" disabled>Hand back</button>
+  </div>
+
+  <div class="demo-two">
+    <!-- Form controls: LookupPicker (listbox open) and FileInput. -->
+    <section class="ak-card">
+      <div class="ak-card-head"><h2 class="ak-card-title">Log activity</h2></div>
+      <div class="ak-card-body ak-form">
+        <div class="ak-field">
+          <label class="ak-label" for="lk">Person</label>
+          <div class="ak-lookup">
+            <input id="lk" class="ak-input" role="combobox" aria-autocomplete="list" aria-expanded="true" aria-controls="lk-list" aria-activedescendant="lk-list-p2" autocomplete="off" value="exa">
+            <ul class="ak-lookup-list" id="lk-list" role="listbox" aria-label="Matches">
+              <li id="lk-list-p1" role="option" aria-selected="false" class="ak-lookup-option"><span>Ana Example</span><span class="ak-lookup-hint">ana@example.com</span></li>
+              <li id="lk-list-p2" role="option" aria-selected="false" class="ak-lookup-option ak-lookup-active"><span>Ben Example</span><span class="ak-lookup-hint">ben@example.com</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="ak-field">
+          <label class="ak-label" for="fi">Photo</label>
+          <div class="ak-file">
+            <input id="fi" type="file" class="ak-input" accept="image/*">
+            <div class="ak-file-chosen"><span class="ak-file-name">receipt.png</span><span class="ak-file-size ak-num">214.0 KB</span><button type="button" class="ak-btn ak-btn-quiet-danger ak-btn-sm">Remove</button></div>
+            <div class="ak-error-text" role="alert">The file is 6.2 MB; the limit is 5.0 MB.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DefinitionList with Value and CopyValue. -->
+    <section class="ak-card">
+      <div class="ak-card-head"><h2 class="ak-card-title">Fields</h2></div>
+      <div class="ak-card-body">
+        <div class="ak-dl-wrap">
+          <div class="ak-dl-group">
+            <h3 class="ak-dl-title">Site</h3>
+            <dl class="ak-dl">
+              <div class="ak-dl-row"><dt>Host</dt><dd><a class="ak-value ak-link" href="https://example.com" target="_blank" rel="noopener noreferrer nofollow">https://example.com</a></dd></div>
+              <div class="ak-dl-row"><dt>Request id</dt><dd><span class="ak-copy"><code class="ak-code">req_8f3a21c9</code><button type="button" class="ak-btn ak-btn-ghost ak-btn-sm ak-copy-btn" aria-label="Copy req_8f3a21c9" data-copy="req_8f3a21c9">Copy</button><span class="ak-sr-only" role="status"></span></span></dd></div>
+              <div class="ak-dl-row"><dt>Owner</dt><dd><span class="ak-unknown" title="Unknown"><span aria-hidden="true">—</span><span class="ak-sr-only">unknown</span></span></dd></div>
+              <div class="ak-dl-row"><dt>Last check</dt><dd><time class="ak-value" datetime="2026-11-14T09:14:00Z" title="2026-11-14 09:14:00 UTC">3 h ago</time></dd></div>
+              <div class="ak-dl-row ak-dl-wide"><dt>Runbook</dt><dd><span class="ak-value ak-multiline">1. Check the status page.
+2. Restart the worker.
+3. Tell the owner.</span></dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- QueueLayout: list plus focused item, number keys, kind filter with counts, a per-source error. -->
+  <section class="ak-section">
+    <div class="ak-section-head"><div><h2 class="ak-section-title">Queue</h2><p class="ak-section-desc">j and k move; 1 and 2 act and advance.</p></div></div>
+    <div class="ak-queue" data-testid="ops-decide.queue">
+      <div class="ak-filter">
+        <span class="ak-filter-label">Kind</span>
+        <div class="ak-seg" role="group" aria-label="Kind" data-seg>
+          <button type="button" aria-pressed="true">All <span class="ak-seg-count">3</span></button>
+          <button type="button" aria-pressed="false">Replies <span class="ak-seg-count">1</span></button>
+          <button type="button" aria-pressed="false">Leads <span class="ak-seg-count">2</span></button>
+        </div>
+      </div>
+      <div class="ak-alert ak-alert-danger">Events could not load (request r-81). The other sources are shown.</div>
+      <div class="ak-queue-panes">
+        <ul class="ak-card ak-queue-list" role="listbox" aria-label="Decide" data-queue>
+          <li role="option" aria-selected="true" class="ak-queue-item ak-queue-item-focused" data-row-id="a">Reply · 2d · Re: invoice</li>
+          <li role="option" aria-selected="false" class="ak-queue-item" data-row-id="b">Lead · 3d · Example Studio</li>
+          <li role="option" aria-selected="false" class="ak-queue-item" data-row-id="c">Lead · 5h · Sample Co</li>
+        </ul>
+        <section class="ak-card ak-queue-detail" aria-label="Focused item">
+          <div class="ak-queue-body"><h3 class="ak-section-title" data-queue-title>Reply · 2d · Re: invoice</h3><p class="ak-muted">Reaches a person. Draft: “Thanks, paid today.”</p></div>
+          <div class="ak-queue-actions">
+            <button type="button" class="ak-btn ak-btn-primary" aria-keyshortcuts="1" data-queue-act><kbd class="ak-kbd" aria-hidden="true">1</kbd>Approve</button>
+            <button type="button" class="ak-btn" aria-keyshortcuts="2" data-queue-act><kbd class="ak-kbd" aria-hidden="true">2</kbd>Reject</button>
+            <span class="ak-queue-keys ak-muted" aria-hidden="true">j/k move · 1–2 act</span>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Drawer: a side sheet, full screen on a phone. -->
+<dialog class="ak-drawer" aria-labelledby="dr-title" aria-describedby="dr-desc" data-drawer>
+  <div class="ak-drawer-panel">
+    <div class="ak-drawer-head">
+      <div class="ak-drawer-heading"><h2 class="ak-drawer-title" id="dr-title">A. Example</h2><p class="ak-drawer-desc" id="dr-desc">Talking · follow up 2026-11-18</p></div>
+      <button type="button" class="ak-btn ak-btn-ghost ak-btn-sm ak-btn-icon" aria-label="Close" data-drawer-close><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="ak-drawer-body">
+      <div class="ak-dl-wrap"><dl class="ak-dl">
+        <div class="ak-dl-row"><dt>Stage</dt><dd><span class="ak-badge ak-badge-info">Talking</span></dd></div>
+        <div class="ak-dl-row"><dt>Value</dt><dd><span class="ak-value ak-num ak-money ak-money-notional" data-money-kind="notional">$4,200.00</span></dd></div>
+        <div class="ak-dl-row"><dt>Email</dt><dd><span class="ak-unknown" title="Unknown"><span aria-hidden="true">—</span><span class="ak-sr-only">unknown</span></span></dd></div>
+      </dl></div>
+      <div class="ak-field"><label class="ak-label" for="dr-note">Note</label><textarea class="ak-textarea" id="dr-note">call Tue</textarea></div>
+    </div>
+    <div class="ak-drawer-foot"><button type="button" class="ak-btn" data-drawer-close>Cancel</button><button type="button" class="ak-btn ak-btn-primary" data-drawer-close>Save</button></div>
+  </div>
+</dialog>
+
+<!-- ConfirmDialog at tier 3: names who it reaches and needs a second factor. -->
+<dialog class="ak-dialog" data-tier="3" aria-labelledby="t3-title" aria-describedby="t3-body" data-tier-dialog>
+  <div class="ak-dialog-head"><h2 class="ak-dialog-title" id="t3-title">Delete 412 messages?</h2></div>
+  <div class="ak-dialog-body" id="t3-body"><p>They go to the bin for 30 days.</p><p class="ak-dialog-reaches"><span class="ak-dialog-reaches-label">Reaches</span> your mailbox</p></div>
+  <div class="ak-dialog-factor"><label class="ak-label" for="t3-code">Second factor code</label><input id="t3-code" class="ak-input" autocomplete="one-time-code" inputmode="numeric" data-tier-code></div>
+  <div class="ak-dialog-foot"><button type="button" class="ak-btn" data-tier-cancel>Cancel</button><button type="button" class="ak-btn ak-btn-danger-solid" disabled data-tier-confirm>Delete</button></div>
+</dialog>
+
+<!-- CommandPalette: / or Ctrl+K. -->
+<dialog class="ak-palette" aria-label="Search" data-palette>
+  <div class="ak-palette-box">
+    <div class="ak-palette-search">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input class="ak-palette-input" role="combobox" aria-label="Search" aria-expanded="true" aria-controls="pal-list" aria-autocomplete="list" placeholder="Search pages and records…" data-palette-input>
+      <kbd class="ak-kbd">Esc</kbd>
+    </div>
+    <ul class="ak-palette-list" id="pal-list" role="listbox" aria-label="Search">
+      <li class="ak-palette-group" role="presentation">Pages</li>
+      <li role="option" aria-selected="true" class="ak-palette-item ak-palette-active"><span>Budget</span><span class="ak-palette-hint">Money</span></li>
+      <li role="option" aria-selected="false" class="ak-palette-item"><span>Leads</span><span class="ak-palette-hint">Sales</span></li>
+      <li class="ak-palette-group" role="presentation">People</li>
+      <li role="option" aria-selected="false" class="ak-palette-item"><span>Ana Example</span><span class="ak-palette-hint">ana@example.com</span></li>
+    </ul>
+  </div>
+</dialog>
+</body>
+</html>

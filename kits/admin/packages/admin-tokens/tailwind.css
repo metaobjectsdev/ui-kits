@@ -1,0 +1,89 @@
+/* =====================================================================================
+ * @metaobjectsdev/admin-tokens/tailwind.css — the Tailwind 4 bridge.
+ *
+ *   @layer theme, base, ak, components, utilities;   (keeps utilities above the ak- kit)
+ *   @import "tailwindcss";
+ *   @import "@metaobjectsdev/admin-tokens/tailwind.css";
+ *   @import "@metaobjectsdev/admin-css/components.css";
+ *
+ * It loads the tokens, exposes them as Tailwind theme values (bg-surface, text-text-muted,
+ * border-border, bg-accent, text-danger-ink, rounded-md, …) and keys the `dark:` variant to
+ * the shared theme contract: a [data-theme="dark"] scope, or the OS dark preference when
+ * no scope pins light. Existing `dark:` classes keep working while an app moves to tokens.
+ * Known limit: a dark scope inside a light scope inside a dark scope gets no `dark:`
+ * utilities; tokens.css still themes it correctly.
+ * ===================================================================================== */
+
+@import "./tokens.css";
+
+@custom-variant dark {
+  &:where([data-theme="dark"], [data-theme="dark"] *):not(:where([data-theme="dark"] [data-theme="light"], [data-theme="dark"] [data-theme="light"] *)) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:not(:where([data-theme="light"], [data-theme="light"] *)) {
+      @slot;
+    }
+  }
+}
+
+/* `inline` makes each utility read the token itself (bg-surface → var(--surface)), so the
+   utility follows the theme scope it sits in. */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-text-faint: var(--text-faint);
+
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+
+  --color-success-ink: var(--success-ink);
+  --color-success-soft: var(--success-soft);
+  --color-warning-ink: var(--warning-ink);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger-ink: var(--danger-ink);
+  --color-danger-soft: var(--danger-soft);
+  --color-info-ink: var(--info-ink);
+  --color-info-soft: var(--info-soft);
+
+  --color-scrim: var(--scrim);
+
+  --color-viz-1: var(--viz-1);
+  --color-viz-2: var(--viz-2);
+  --color-viz-3: var(--viz-3);
+  --color-viz-4: var(--viz-4);
+  --color-viz-5: var(--viz-5);
+  --color-viz-muted: var(--viz-muted);
+  --color-viz-grid: var(--viz-grid);
+
+  --color-series-1: var(--series-1);
+  --color-series-2: var(--series-2);
+  --color-series-3: var(--series-3);
+  --color-series-4: var(--series-4);
+  --color-series-5: var(--series-5);
+  --color-series-6: var(--series-6);
+  --color-series-other: var(--series-other);
+
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
+  --radius-full: var(--r-full);
+
+  --shadow-1: var(--shadow-1);
+  --shadow-pop: var(--shadow-pop);
+}
+
+/* Tailwind's own --font-sans and --font-mono live in its theme layer, so the unlayered
+   tokens above already win and font-sans / font-mono use the kit's stacks. --font-display
+   is registered here only so `font-display` exists; the token's value wins the same way. */
+@theme {
+  --font-display: var(--font-sans);
+}

@@ -1,0 +1,5 @@
+/* Layout helpers for the demo page only; not part of any package. */
+html, body { margin: 0; }
+.demo-two { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr)); align-items: start; }
+.demo-stack { display: grid; gap: 14px; }
+.demo-spacer { flex: 1; }

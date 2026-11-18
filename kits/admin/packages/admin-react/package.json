@@ -1,0 +1,70 @@
+{
+  "name": "@metaobjectsdev/admin-react",
+  "version": "0.1.0",
+  "description": "Shared admin React 19 components that emit the ak- classes of @metaobjectsdev/admin-css. No Tailwind dependency. The MetaObjects reference admin kit.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.test.*",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "keywords": [
+    "react",
+    "admin",
+    "components",
+    "metaobjects"
+  ],
+  "dependencies": {
+    "@metaobjectsdev/admin-css": "workspace:^",
+    "@metaobjectsdev/admin-tokens": "workspace:^"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.8",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "jsdom": "^30.1.3",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.5"
+  },
+  "publishConfig": {
+    "access": "public",
+    "tag": "preview"
+  },
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "prepack": "pnpm build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/metaobjectsdev/ui-kits.git",
+    "directory": "kits/admin/packages/admin-react"
+  },
+  "homepage": "https://github.com/metaobjectsdev/ui-kits/tree/main/kits/admin#readme",
+  "bugs": {
+    "url": "https://github.com/metaobjectsdev/ui-kits/issues"
+  }
+}

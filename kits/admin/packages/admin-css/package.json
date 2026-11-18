@@ -1,0 +1,50 @@
+{
+  "name": "@metaobjectsdev/admin-css",
+  "version": "0.1.0",
+  "description": "Shared admin components in plain CSS: one cascade layer (ak), ak- prefixed classes, light and dark through @metaobjectsdev/admin-tokens. The MetaObjects reference admin kit.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "exports": {
+    "./admin.css": "./admin.css",
+    "./components.css": "./components.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "admin.css",
+    "components.css",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "keywords": [
+    "css",
+    "admin",
+    "components",
+    "metaobjects"
+  ],
+  "dependencies": {
+    "@metaobjectsdev/admin-tokens": "workspace:^"
+  },
+  "publishConfig": {
+    "access": "public",
+    "tag": "preview"
+  },
+  "scripts": {
+    "build": "node ../../scripts/build-admin-css.mjs --check",
+    "typecheck": "true",
+    "test": "true",
+    "prepack": "node ../../scripts/build-admin-css.mjs --check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/metaobjectsdev/ui-kits.git",
+    "directory": "kits/admin/packages/admin-css"
+  },
+  "homepage": "https://github.com/metaobjectsdev/ui-kits/tree/main/kits/admin#readme",
+  "bugs": {
+    "url": "https://github.com/metaobjectsdev/ui-kits/issues"
+  }
+}
